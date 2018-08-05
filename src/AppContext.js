@@ -8,10 +8,25 @@ export class AppProvider extends React.Component {
   };
 
   test = values => {
+    let hour = values.hour;
+    let minute = values.minute;
 
-    let current = Date.prototype.getTime();
-    // this.setState({ time: 2 });
-    console.log(current)
+    var startDate = new Date();
+// Do your operations
+    var endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), hour, minute, 0);
+    var minutesLeft = (endDate.getTime() - startDate.getTime()) / 60000;
+
+    console.log(minutesLeft)
+
+    if(startDate > endDate) {
+      var endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1, hour, minute, 0);
+      var minutesLeft = (endDate.getTime() - startDate.getTime()) / 60000;
+      console.log('En dag lades till')
+    }
+
+    console.log(minutesLeft)
+    this.setState({time : Math.floor(minutesLeft)})
+
   };
 
   render() {

@@ -13,14 +13,14 @@ class Clock extends Component {
                   e.preventDefault();
 
                   const values = {
-                    hours: e.target.hours.value,
-                    minutes: e.target.minutes.value,
+                    hour: e.target.hour.value,
+                    minute: e.target.minute.value,
                   };
                   context.state.test(values);
                 }}>
             
-                <input type="text" name="hours" placeholder="hours" />
-                <input type="text" name="minutes" placeholder="minutes" />
+                <input type="text" name="hour" placeholder="hours" />
+                <input type="text" name="minute" placeholder="minutes" />
                 <button className="button-style">Add time</button>
             
                 
