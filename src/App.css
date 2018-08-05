@@ -1,5 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Modern+Antiqua');
 
+.center {
+    text-align: center;
+
+}
+
+.rubbe {
+    color: white;
+}
+
+input {
+    width: 4em;
+    border-radius: 2em;
+}
+button {
+    background-color: blueviolet;
+    border-radius: 0.5em;
+    border-color: blueviolet;
+    color: white;
+
+}
+
+body {
+    background: url(timerbackground.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
 @media only screen and (max-width: 600px) {
   
 }
