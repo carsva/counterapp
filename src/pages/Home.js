@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AppConsumer } from '../AppContext';
+import Clock from './../components/Clock';
 
 class Home extends Component {
  
@@ -7,7 +8,13 @@ class Home extends Component {
     return (
       <AppConsumer>
         {context => (
-          <div>Hello</div>
+          <div>
+          <Clock />
+          <div>
+                <h3>Data that lives in the context</h3>
+                <pre>{JSON.stringify(context, null, 4)}</pre>
+              </div>
+          </div>
         )}
       </AppConsumer>
     );

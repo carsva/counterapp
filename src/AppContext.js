@@ -4,17 +4,15 @@ export const AppContext = React.createContext('plant');
 
 export class AppProvider extends React.Component {
   state = {
-   
+    time: 0,
   };
 
-  
+  test = values => {
 
-  test = () => {
-    
+    let current = Date.prototype.getTime();
+    // this.setState({ time: 2 });
+    console.log(current)
   };
-
-  // componentWillMount() {
-  // }
 
   render() {
     const value = {
