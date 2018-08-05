@@ -75,7 +75,7 @@ export class AppProvider extends React.Component {
   onDuty = () => {
     console.log('starting duty');
 
-    setInterval(this.onDutyCheck, 1000);
+    setInterval(this.onDutyCheck, 60000);
   };
 
   render() {
