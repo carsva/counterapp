@@ -4,7 +4,8 @@ export const AppContext = React.createContext('plant');
 
 export class AppProvider extends React.Component {
   state = {
-    time: 0,
+    hour: 0,
+    minute: 0,
   };
 
   test = values => {
@@ -25,15 +26,25 @@ export class AppProvider extends React.Component {
     }
 
     console.log(minutesLeft)
-    this.setState({time : Math.floor(minutesLeft)})
+    this.setState({
+      hour : Math.floor(minutesLeft / 60),
+      minute : Math.floor(minutesLeft % 60),
+    })
 
+  }
+
+  
+  start = () => {
+    console.log('start')
   };
+
 
   render() {
     const value = {
       state: {
         ...this.state,
         test: this.test,
+        start: this.start,
       },
     };
 

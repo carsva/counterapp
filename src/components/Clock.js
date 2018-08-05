@@ -8,7 +8,7 @@ class Clock extends Component {
       <AppConsumer>
         {context => (
           <div>
-            <h1>{context.state.time} minuter</h1>
+            <h1>{context.state.hour} hours and {context.state.minute} minutes</h1>
             <form onSubmit={(e) => {
                   e.preventDefault();
 
@@ -25,7 +25,7 @@ class Clock extends Component {
             
                 
             </form>
-            <button onClick={context.state.test}>Start</button>
+            <button onClick={context.state.start}>Start</button>
           </div>
         )}
       </AppConsumer>
