@@ -1,20 +1,47 @@
 import React from 'react';
 
-export const AppContext = React.createContext('plant');
+export const AppContext = React.createContext('counter');
+
+// let minute = [];
+// let hour = [];
+
+// var blabla = {
+//   countdownTimeer: '',
+// };
+
+// console.log(blabla);
+
+// localStorage.setItem('calle', JSON.stringify(blabla));
+
+// console.log(localStorage);
+// var anothervariable = JSON.parse(localStorage.getItem('calle'));
+// console.log(anothervariable);
+
+// if (localStorage.hour && localStorage.minute) {
+//   let localHour = JSON.parse(localStorage.hour);
+//   let localMinute = JSON.parse(localStorage.minute);
+//   minute = localMinute;
+//   hour = localHour;
+// }
 
 export class AppProvider extends React.Component {
   state = {
-    hour: 0,
-    minute: 0,
+    endTime: "",
+    hour: "",
+    minute: "",
+    intervalId: "",
+    currentCount: "100",
   };
 
   test = values => {
+
+    console.log('test is being run')
     let hour = values.hour;
     let minute = values.minute;
 
     var startDate = new Date();
     // Do your operations
-    var endDate = new Date(
+    var endTime = new Date(
       startDate.getFullYear(),
       startDate.getMonth(),
       startDate.getDate(),
@@ -22,12 +49,10 @@ export class AppProvider extends React.Component {
       minute,
       0,
     );
-    var minutesLeft = (endDate.getTime() - startDate.getTime()) / 60000;
+    var minutesLeft = (endTime.getTime() - startDate.getTime()) / 60000;
 
-    console.log(minutesLeft);
-
-    if (startDate > endDate) {
-      var endDate = new Date(
+    if (startDate > endTime) {
+      var endTime = new Date(
         startDate.getFullYear(),
         startDate.getMonth(),
         startDate.getDate() + 1,
@@ -35,50 +60,94 @@ export class AppProvider extends React.Component {
         minute,
         0,
       );
-      var minutesLeft = (endDate.getTime() - startDate.getTime()) / 60000;
-      console.log('En dag lades till');
+      var minutesLeft = (endTime.getTime() - startDate.getTime()) / 60000;
     }
+    localStorage.endTime = endTime;
+    console.log('is it working?' + localStorage.endTime)
 
-    console.log(minutesLeft);
     this.setState({
-      hour: Math.floor(minutesLeft / 60),
-      minute: Math.floor(minutesLeft % 60),
+      // hour: Math.floor(minutesLeft / 60),
+      // minute: Math.floor(minutesLeft % 60),
+      endTime: endTime.toISOString(),
     });
-    this.onDuty();
     
+  
+    // localStorage.endTime = JSON.stringify(endTime);
+
+
+    // this.onDuty();
   };
 
-  onDutyCheck = () => {
-    console.log('check');
+  // onDutyCheck = () => {
+    // this.init();
 
-    if (this.state.minute === 0 && this.state.hour > 0) {
-      this.setState({
-        hour: this.state.hour - 1,
-        minute: 59,
-      });
-    } else if (this.state.minute === 0 && this.state.hour === 0) {
-      clearInterval(this.onDutyCheck);
-      clearInterval(this.onDuty);
-      clearInterval();
-    }else {
+    // var count = 
+    // console.log('check');
 
-      this.setState({
-        minute: this.state.minute - 1,
-      });
-      document.title = this.state.hour + ' h & ' + this.state.minute + " min";
+
+    // if (this.state.minute === 0 && this.state.hour > 0) {
+    //   this.setState({
+    //     hour: this.state.hour - 1,
+    //     minute: 59,
+    //   });
+      
+    //   // localStorage.hour = JSON.stringify(Math.floor(this.state.hour - 1));
+    //   // localStorage.minute = JSON.stringify(Math.floor(59));
+    // } else if (this.state.minute === 0 && this.state.hour === 0) {
+    //   clearInterval(this.onDutyCheck);
+    //   clearInterval(this.onDuty);
+    //   clearInterval();
+    // } else {
+    //   this.setState({
+    //     minute: this.state.minute - 1,
+    //   });
+
+    //   document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
+    // }
+    
+  // };
+
+  // onDuty = () => {
+  
+  //   console.log('starting duty');
+  //   setInterval(this.init, 1000);
+  // };
+
+ 
+  componentDidMount() {
+    var intervalId = setInterval(this.timer, 1000);
+    // store intervalId in the state so it can be accessed later:
+    this.setState({intervalId: intervalId});
+ }
+ 
+ componentWillUnmount() {
+    // use intervalId from the state to clear the interval
+    clearInterval(this.state.intervalId);
+ }
+ 
+ timer = () => {
+    
+    let now =  new Date();
+    let then = new Date(localStorage.endTime);
+    if (this.state.minute === 0 && this.state.hour === 0) {
+      console.log('finito')
+      clearInterval(this.state.intervalId)
     }
+    var NewMinutesLeft = (then - now);
+    NewMinutesLeft = NewMinutesLeft / 60000;
 
-    
-   
-  };
+    this.setState({
+      endTime: then,
+      hour: Math.floor(NewMinutesLeft / 60),
+      minute: Math.floor(NewMinutesLeft % 60),
+    });
 
-  onDuty = () => {
-    console.log('starting duty');
+ }
 
-    setInterval(this.onDutyCheck, 60000);
-  };
+  
 
   render() {
+    console.log(this.state.intervalId)
     const value = {
       state: {
         ...this.state,
@@ -86,7 +155,7 @@ export class AppProvider extends React.Component {
         test: this.test,
       },
     };
-
+    
     return (
       <AppContext.Provider value={value}>
         {this.props.children}
