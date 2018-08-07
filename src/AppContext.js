@@ -30,7 +30,7 @@ export class AppProvider extends React.Component {
     hour: "",
     minute: "",
     intervalId: "",
-    status: "",
+    abro: 0,
   };
 
   test = values => {
@@ -69,24 +69,23 @@ export class AppProvider extends React.Component {
       minute: Math.floor(minutesLeft % 60),
       endTime: endTime.toISOString(),
     });
-    
+    clearInterval(this.state.intervalId);
     this.startTimer();
- 
+    
   };
 
-  startTimer () {
+  startTimer = () => {
+    // let now =  new Date();
+    // let then = new Date(localStorage.endTime);
 
-    let now =  new Date();
-    let then = new Date(localStorage.endTime);
+    // var NewMinutesLeft = (then - now);
+    // NewMinutesLeft = NewMinutesLeft / 60000;
 
-    var NewMinutesLeft = (then - now);
-    NewMinutesLeft = NewMinutesLeft / 60000;
-
-    this.setState({
-      endTime: then,
-      hour: Math.floor(NewMinutesLeft / 60),
-      minute: Math.floor(NewMinutesLeft % 60),
-    });
+    // this.setState({
+    //   endTime: then,
+    //   hour: Math.floor(NewMinutesLeft / 60),
+    //   minute: Math.floor(NewMinutesLeft % 60),
+    // });
 
     var intervalId = setInterval(this.timer, 1000);
     this.setState({intervalId: intervalId});
@@ -94,18 +93,18 @@ export class AppProvider extends React.Component {
 
  
   componentDidMount() {
-
-  let now =  new Date();
-  let localStorageTime = new Date(localStorage.endTime);
-  console.log('this is the localStorage endtime: ' + localStorage.endTime)
-  if(localStorageTime < now) {
     
-    console.log('Its overtime')
+
+  // let now =  new Date();
+  // let localStorageTime = new Date(localStorage.endTime);
+  // console.log('this is the localStorage endtime: ' + localStorage.endTime)
+  // if(localStorageTime < now) {
+    
+  //   console.log('Its overtime')
    
-  } else {
+  // } else {
     this.startTimer();
  }
-}
  
  componentWillUnmount() {
     // use intervalId from the state to clear the interval
@@ -113,39 +112,59 @@ export class AppProvider extends React.Component {
  }
  
  timer = () => {
+
   console.log('timer runs')
+
     let now =  new Date();
     let then = new Date(localStorage.endTime);
 
-    if (this.state.minute === 0 && this.state.hour > 0) {
-      this.setState({
-        hour: this.state.hour - 1,
-        minute: 59,
-      });
-      console.log(' first fires')
-      
-      // localStorage.hour = JSON.stringify(Math.floor(this.state.hour - 1));
-      // localStorage.minute = JSON.stringify(Math.floor(59));
-    } else if (this.state.minute === 0 && this.state.hour === 0) {
-      clearInterval(this.state.intervalId);
-      var audio = new Audio('wakeup.mp3');
-      audio.play();
-      document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
-      console.log(' else If fires')
-
-    } else {
-      console.log(' else fires')
-      document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
-    }
-
-    var NewMinutesLeft = (then - now);
-    NewMinutesLeft = NewMinutesLeft / 60000;
+    var minutesLeft = (then - now) / 60000;
 
     this.setState({
-      endTime: then,
-      hour: Math.floor(NewMinutesLeft / 60),
-      minute: Math.floor(NewMinutesLeft % 60),
+      hour: Math.floor(minutesLeft / 60),
+      minute: Math.floor(minutesLeft % 60),
+      endTime: localStorage.endTime,
     });
+
+   
+
+
+
+
+
+  
+  //   let now =  new Date();
+  //   let then = new Date(localStorage.endTime);
+
+  //   if (this.state.minute === 0 && this.state.hour > 0) {
+  //     this.setState({
+  //       hour: this.state.hour - 1,
+  //       minute: 59,
+  //     });
+  //     console.log(' first fires')
+      
+  //     // localStorage.hour = JSON.stringify(Math.floor(this.state.hour - 1));
+  //     // localStorage.minute = JSON.stringify(Math.floor(59));
+  //   } else if (this.state.minute === 0 && this.state.hour === 0) {
+  //     clearInterval(this.state.intervalId);
+  //     var audio = new Audio('wakeup.mp3');
+  //     audio.play();
+  //     document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
+  //     console.log(' else If fires')
+
+  //   } else {
+  //     console.log(' else fires')
+  //     document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
+  //   }
+
+  //   var NewMinutesLeft = (then - now);
+  //   NewMinutesLeft = NewMinutesLeft / 60000;
+
+  //   this.setState({
+  //     endTime: then,
+  //     hour: Math.floor(NewMinutesLeft / 60),
+  //     minute: Math.floor(NewMinutesLeft % 60),
+  //   });
     
   };
 
