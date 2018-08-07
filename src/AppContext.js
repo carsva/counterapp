@@ -94,16 +94,12 @@ export class AppProvider extends React.Component {
 
  
   componentDidMount() {
-    this.setState({
-      hour: 0,
-      minute: 0,
-      endTime: localStorage.endTime,
-    });
 
   let now =  new Date();
-  let localStorageTime = new Date(localStorage.endtime);
+  let localStorageTime = new Date(localStorage.endTime);
+  console.log('this is the localStorage endtime: ' + localStorage.endTime)
   if(localStorageTime < now) {
-    console.log('this is the localStorage endtime: ' + localStorage.endtime)
+    
     console.log('Its overtime')
    
   } else {
