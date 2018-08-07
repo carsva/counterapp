@@ -30,7 +30,7 @@ export class AppProvider extends React.Component {
     hour: "",
     minute: "",
     intervalId: "",
-    currentCount: "100",
+    status: "",
   };
 
   test = values => {
@@ -69,73 +69,41 @@ export class AppProvider extends React.Component {
       endTime: endTime.toISOString(),
     });
     
-  
-    // localStorage.endTime = JSON.stringify(endTime);
-
-
-    // this.onDuty();
+ 
   };
-
-  // onDutyCheck = () => {
-    // this.init();
-
-    // var count = 
-    // console.log('check');
-
-
-    
-
-  // onDuty = () => {
-  
-  //   console.log('starting duty');
-  //   setInterval(this.init, 1000);
-  // };
 
  
   componentDidMount() {
-  
+  let now =  new Date();
+  if(this.state.endTime < now) {
+    console.log('Its overtime')
+    localStorage.endTime = "";
+    this.setState({
+      minutes: 0,
+      hours: 0,
+    })
+    
+  }
   var intervalId = setInterval(this.timer, 1000);
   this.setState({intervalId: intervalId});
- 
  }
  
  componentWillUnmount() {
     // use intervalId from the state to clear the interval
     clearInterval(this.state.intervalId);
  }
-
- clear = () => {
-  if(this.state.minute < 0) {
-    console.log('less than zero')
-    this.setState({
-      endTime: "",
-    });
-    console.log(this.state)
-  }
-
-  clearInterval(this.state.intervalId);
- }
  
  timer = () => {
-
+  console.log('timer runs')
     let now =  new Date();
     let then = new Date(localStorage.endTime);
-
-    if(this.state.endTime < now) {
-      console.log('more than now')
-      this.setState({
-        hour: 0,
-        minute: 0,
-        endTime: "",
-      });
-      clearInterval(this.state.intervalId);
-    }
 
     if (this.state.minute === 0 && this.state.hour > 0) {
       this.setState({
         hour: this.state.hour - 1,
         minute: 59,
       });
+      console.log(' first fires')
       
       // localStorage.hour = JSON.stringify(Math.floor(this.state.hour - 1));
       // localStorage.minute = JSON.stringify(Math.floor(59));
@@ -143,12 +111,10 @@ export class AppProvider extends React.Component {
       clearInterval(this.state.intervalId);
       var audio = new Audio('wakeup.mp3');
       audio.play();
+      console.log(' else If fires')
 
     } else {
-      this.setState({
-        minute: this.state.minute - 1,
-      });
-
+      console.log(' else fires')
       document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
     }
 
