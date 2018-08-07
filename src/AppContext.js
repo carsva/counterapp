@@ -62,6 +62,7 @@ export class AppProvider extends React.Component {
       var minutesLeft = (endTime.getTime() - startDate.getTime()) / 60000;
     }
     localStorage.endTime = endTime;
+    console.log(localStorage.endTime)
 
     this.setState({
       hour: Math.floor(minutesLeft / 60),
@@ -73,15 +74,42 @@ export class AppProvider extends React.Component {
  
   };
 
+  startTimer () {
+
+    let now =  new Date();
+    let then = new Date(localStorage.endTime);
+
+    var NewMinutesLeft = (then - now);
+    NewMinutesLeft = NewMinutesLeft / 60000;
+
+    this.setState({
+      endTime: then,
+      hour: Math.floor(NewMinutesLeft / 60),
+      minute: Math.floor(NewMinutesLeft % 60),
+    });
+
+    var intervalId = setInterval(this.timer, 1000);
+    this.setState({intervalId: intervalId});
+  }
+
  
   componentDidMount() {
+    this.setState({
+      hour: 0,
+      minute: 0,
+      endTime: localStorage.endTime,
+    });
+
   let now =  new Date();
-  if(this.state.endTime < now) {
+  let localStorageTime = new Date(localStorage.endtime);
+  if(localStorageTime < now) {
+    console.log('this is the localStorage endtime: ' + localStorage.endtime)
     console.log('Its overtime')
-  }
-  var intervalId = setInterval(this.timer, 1000);
-  this.setState({intervalId: intervalId});
+   
+  } else {
+    this.startTimer();
  }
+}
  
  componentWillUnmount() {
     // use intervalId from the state to clear the interval
