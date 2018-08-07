@@ -126,6 +126,19 @@ export class AppProvider extends React.Component {
       endTime: localStorage.endTime,
     });
 
+    if(this.state.hour === 0 && this.state.minute === 0) {
+      clearInterval(this.state.intervalId);
+    }
+
+    if(this.state.hour < 0) {
+      console.log('Hour is zero')
+      this.setState({
+        hour: 0,
+        minute: 0,
+        endTime: 0,
+      });
+      clearInterval(this.state.intervalId);
+    }
    
 
 
