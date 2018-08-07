@@ -69,6 +69,7 @@ export class AppProvider extends React.Component {
       endTime: endTime.toISOString(),
     });
     
+    this.timer();
  
   };
 
@@ -77,12 +78,6 @@ export class AppProvider extends React.Component {
   let now =  new Date();
   if(this.state.endTime < now) {
     console.log('Its overtime')
-    localStorage.endTime = "";
-    this.setState({
-      minutes: 0,
-      hours: 0,
-    })
-    
   }
   var intervalId = setInterval(this.timer, 1000);
   this.setState({intervalId: intervalId});
@@ -111,6 +106,7 @@ export class AppProvider extends React.Component {
       clearInterval(this.state.intervalId);
       var audio = new Audio('wakeup.mp3');
       audio.play();
+      document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
       console.log(' else If fires')
 
     } else {
