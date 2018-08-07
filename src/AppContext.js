@@ -70,7 +70,7 @@ export class AppProvider extends React.Component {
       endTime: endTime.toISOString(),
     });
     
-    this.timer();
+    this.startTimer();
  
   };
 
