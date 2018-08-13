@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Modern+Antiqua');
+@import url('https://fonts.googleapis.com/css?family=Lobster');
 
 .center {
     text-align: center;
-
+    justify-content: center;
 }
 
 .rubbe {
     color: white;
+    font-family: Lobster;
+    
 }
 
 input {
@@ -18,11 +21,10 @@ button {
     border-radius: 0.5em;
     border-color: blueviolet;
     color: white;
-
 }
 
 body {
-    background: url(timerbackground.jpg) no-repeat center center fixed;
+    background: url(background1.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -31,5 +33,34 @@ body {
 
 
 @media only screen and (max-width: 600px) {
-  
+    button {
+        margin-top: 2em;
+        background-color: blueviolet;
+        border-radius: 0.3em;
+        border-color: blueviolet;
+        color: white;
+        width: 60%;
+        height: 2em;
+        font-size: 1.5em;
+    
+    }
+
+    .rubbe {
+        margin-top: 1.5em;
+        margin-bottom: 1.8em;
+        color: white;
+        font-family: Lobster;
+        font-size: 5em;
+        width: 4.55em;
+        height: 3em;
+    }
+
+    input {
+        width: 4em;
+        font-size: 1.5em;
+        margin-left: 0.3em;
+        border-radius: 0.3em;
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
 }
