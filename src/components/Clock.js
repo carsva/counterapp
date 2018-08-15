@@ -2,29 +2,33 @@ import React, { Component } from 'react';
 import { AppConsumer } from '../AppContext';
 
 class Clock extends Component {
- 
   render() {
     return (
       <AppConsumer>
         {context => (
-          <div className="center">
-            <h1 className="rubbe">{context.state.hour} hours and {context.state.minute} minutes</h1>
-            <form onSubmit={(e) => {
-                  e.preventDefault();
+          <div className="container">
+            <div className="rubbe-container">
+              <h1 className="rubbe">
+                {context.state.hour} hours and {context.state.minute} minutes
+              </h1>
+            </div>
+            <div className="form-container">
+            <form
+              onSubmit={e => {
+                e.preventDefault();
 
-                  const values = {
-                    hour: e.target.hour.value,
-                    minute: e.target.minute.value,
-                  };
-                  context.state.test(values);
-                }}>
-            
-                <input type="text" name="hour" placeholder="hour" />
-                <input type="text" name="minute" placeholder="minute" />
-                <button className="button-style">Start</button>
-            
-                
+                const values = {
+                  hour: e.target.hour.value,
+                  minute: e.target.minute.value,
+                };
+                context.state.test(values);
+              }}
+            >
+              <input type="text" name="hour" placeholder="hour" />
+              <input type="text" name="minute" placeholder="minute" />
+              <button className="button-style">Start</button>
             </form>
+            </div>
           </div>
         )}
       </AppConsumer>

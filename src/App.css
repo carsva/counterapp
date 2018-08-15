@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Modern+Antiqua');
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 
-.center {
-    text-align: center;
-    justify-content: center;
-}
 
 .rubbe {
     color: white;
@@ -13,7 +9,7 @@
 }
 
 input {
-    width: 4em;
+   
     border-radius: 2em;
 }
 button {
@@ -34,33 +30,58 @@ body {
 
 @media only screen and (max-width: 600px) {
     button {
-        margin-top: 2em;
         background-color: blueviolet;
         border-radius: 0.3em;
         border-color: blueviolet;
         color: white;
-        width: 60%;
-        height: 2em;
+        width: 100%;
         font-size: 1.5em;
+        height:2em;
     
     }
 
-    .rubbe {
-        margin-top: 1.5em;
-        margin-bottom: 1.8em;
-        color: white;
-        font-family: Lobster;
-        font-size: 5em;
-        width: 4.55em;
-        height: 3em;
+    .container {
+        text-align: center;
     }
 
-    input {
-        width: 4em;
-        font-size: 1.5em;
-        margin-left: 0.3em;
-        border-radius: 0.3em;
+    .rubbe-container {
+        margin-top: 3em;
+        display: flex;
+        height: 200px;
+    }
+
+    .rubbe {
+        color: white;
+        font-fami
+        ly: Lobster;
+        font-size: 4em;
+        width: 4em; 
+        height: 4em; 
+        margin: auto; 
+    }
+
+    .form-container {
+        display: flex;
+        height: 300px; /* Or whatever */
+        
+    }
+
+    form {
+        width: 18em;  /* Or whatever */
+        height: 10em; /* Or whatever */
+        margin: auto;
         text-align: center;
+    }
+    
+    input {
+        margin-bottom: 1em;
+        text-align: center;
+        font-size: 1.5em;
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+        width: 5.8em;
+        border-radius: 0.3em;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        
     }
 }
