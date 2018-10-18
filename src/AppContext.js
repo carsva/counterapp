@@ -27,12 +27,29 @@ export const AppContext = React.createContext('counter');
 
 export class AppProvider extends React.Component {
   state = {
-    startTime: "",
-    endTime: "",
-    hour: "",
-    minute: "",
-    intervalId: "",
-    abro: 0,
+    timers: [
+      {
+        startTime: "",
+        endTime: "",
+        hour: "",
+        minute: "",
+        intervalId: ""
+      },
+      {
+        startTime: "",
+        endTime: "",
+        hour: "",
+        minute: "",
+        intervalId: ""
+      },
+      {
+        startTime: "",
+        endTime: "",
+        hour: "",
+        minute: "",
+        intervalId: ""
+      },
+    ]
   };
 
   test = values => {
