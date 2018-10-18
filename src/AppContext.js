@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 export const AppContext = React.createContext('counter');
 
@@ -38,39 +39,44 @@ export class AppProvider extends React.Component {
     let hour = values.hour;
     let minute = values.minute;
 
-    var startDate = new Date();
-    // Do your operations
-    var endTime = new Date(
-      startDate.getFullYear(),
-      startDate.getMonth(),
-      startDate.getDate(),
-      hour,
-      minute,
-      0,
-    );
-    var minutesLeft = (endTime.getTime() - startDate.getTime()) / 60000;
+  
+    var minutesLeft = moment()
 
-    if (startDate > endTime) {
-      var endTime = new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate() + 1,
-        hour,
-        minute,
-        0,
-      );
-      var minutesLeft = (endTime.getTime() - startDate.getTime()) / 60000;
-    }
-    localStorage.endTime = endTime;
-    console.log(localStorage.endTime)
+    var startTime = moment();
+    var endTime = moment().add(hour, 'hours').add(minute, 'minutes');
+    // var endTime = moment().add(2, 'hours');
+    // var endTime = moment("06:12:07 pm").format("x");
 
-    this.setState({
-      hour: Math.floor(minutesLeft / 60),
-      minute: Math.floor(minutesLeft % 60),
-      endTime: endTime.toISOString(),
-    });
-    clearInterval(this.state.intervalId);
-    this.startTimer();
+    
+
+
+    console.log('start time', startTime)
+    console.log('end Time', endTime)   
+    console.log((endTime - startTime)/60000)
+
+    // if (startDate > endTime) {
+    //   var endTime = new Date(
+    //     startDate.minutesLeft,
+    //     startDate.getMonth(),
+    //     startDate.getDate() + 1,
+    //     hour,
+    //     minute,
+    //     0,
+    //   );
+    //   var minutesLeft = (endTime.getTime() - startDate.getTime()) / 60000;
+    // }
+
+
+    // localStorage.endTime = endTime;
+    // console.log(localStorage.endTime)
+
+    // this.setState({
+    //   hour: Math.floor(minutesLeft / 60),
+    //   minute: Math.floor(minutesLeft % 60),
+    //   endTime: endTime.toISOString(),
+    // });
+    // clearInterval(this.state.intervalId);
+    // this.startTimer();
     
   };
 
@@ -113,8 +119,6 @@ export class AppProvider extends React.Component {
  
  timer = () => {
 
-  console.log('timer runs')
-
     let now =  new Date();
     let then = new Date(localStorage.endTime);
 
@@ -131,7 +135,6 @@ export class AppProvider extends React.Component {
     }
 
     if(this.state.hour < 0) {
-      console.log('Hour is zero')
       this.setState({
         hour: 0,
         minute: 0,
