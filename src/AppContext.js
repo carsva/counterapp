@@ -27,100 +27,71 @@ export const AppContext = React.createContext('counter');
 
 export class AppProvider extends React.Component {
   state = {
+    noTimer: true,
     timers: [
-      { name: "",
-        startTime: "",
-        endTime: "",
-        hour: "",
-        minute: "",
-        intervalId: ""
-      },
-      {
-        name: "",
-        startTime: "",
-        endTime: "",
-        hour: "",
-        minute: "",
-        intervalId: ""
-      },
-      { name: "",
-        startTime: "",
-        endTime: "",
-        hour: "",
-        minute: "",
-        intervalId: ""
-      },
-    ]
+    ],
   };
 
   test = values => {
-
     let hour = values.hour;
     let minute = values.minute;
 
-  
-    var minutesLeft = moment()
+    var minutesLeft = moment();
 
     var startTime = moment();
-    var endTime = moment({ hour:hour, minute:minute });
+    var endTime = moment({ hour: hour, minute: minute });
     // var endTime = moment().add(2, 'hours');
     // var endTime = moment("06:12:07 pm").format("x");
-    var minutesLeft = (endTime - startTime) / 60000
-    
+    var minutesLeft = (endTime - startTime) / 60000;
+
     if (minutesLeft < 0) {
       minutesLeft = minutesLeft + 1440;
       endTime = moment(endTime).add(24, 'hours');
     }
-    
+
     localStorage.endTime = endTime;
-    console.log('endTime set in local storage', localStorage.endTime)
+    console.log('endTime set in local storage', localStorage.endTime);
 
     this.setState({
       // ...this.state,
+
       timers: [
+        ...this.state.timers,
         {
-            name: "",
-            startTime: "",
-            endTime: "",
-            hour: Math.floor(minutesLeft / 60),
-            minute: Math.floor(minutesLeft % 60),
-            intervalId: ""
+          name: '',
+          startTime: '',
+          endTime: '',
+          hour: Math.floor(minutesLeft / 60),
+          minute: Math.floor(minutesLeft % 60),
+          intervalId: '',
         },
-
-
-        // hour: Math.floor(minutesLeft / 60),
-        // minute: Math.floor(minutesLeft % 60),
-        // endTime: endTime,
-        // startTime,
       ],
-
+      noTimer: false,
+      // hour: Math.floor(minutesLeft / 60),
+      // minute: Math.floor(minutesLeft % 60),
+      // endTime: endTime,
+      // startTime,
     });
     // clearInterval(this.state.intervalId);
     // this.startTimer();
-    
   };
 
   startTimer = () => {
-  
     var intervalId = setInterval(this.timer, 1000);
     // this.setState({intervalId: intervalId});
+  };
+
+  componentDidMount() {
+    this.startTimer();
   }
 
- 
-  componentDidMount() {
-
-    this.startTimer();
- }
- 
- componentWillUnmount() {
-   
+  componentWillUnmount() {
     clearInterval(this.state.intervalId);
- }
- 
- timer = () => {
+  }
 
-    let now =  moment();
-    let then = moment(localStorage.endTime)
+  timer = () => {
+    let now = moment();
+    let then = moment(localStorage.endTime);
 
     // console.log(now)
     // console.log(then)
@@ -133,11 +104,11 @@ export class AppProvider extends React.Component {
     //   endTime: localStorage.endTime,
     // });
 
-    if(this.state.hour === 0 && this.state.minute === 0) {
+    if (this.state.hour === 0 && this.state.minute === 0) {
       clearInterval(this.state.intervalId);
     }
 
-    if(this.state.hour < 0) {
+    if (this.state.hour < 0) {
       this.setState({
         hour: 0,
         minute: 0,
@@ -145,50 +116,43 @@ export class AppProvider extends React.Component {
       });
       clearInterval(this.state.intervalId);
     }
-   
 
+    //   let now =  new Date();
+    //   let then = new Date(localStorage.endTime);
 
+    //   if (this.state.minute === 0 && this.state.hour > 0) {
+    //     this.setState({
+    //       hour: this.state.hour - 1,
+    //       minute: 59,
+    //     });
+    //     console.log(' first fires')
 
+    //     // localStorage.hour = JSON.stringify(Math.floor(this.state.hour - 1));
+    //     // localStorage.minute = JSON.stringify(Math.floor(59));
+    //   } else if (this.state.minute === 0 && this.state.hour === 0) {
+    //     clearInterval(this.state.intervalId);
+    //     var audio = new Audio('wakeup.mp3');
+    //     audio.play();
+    //     document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
+    //     console.log(' else If fires')
 
+    //   } else {
+    //     console.log(' else fires')
+    //     document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
+    //   }
 
-  
-  //   let now =  new Date();
-  //   let then = new Date(localStorage.endTime);
+    //   var NewMinutesLeft = (then - now);
+    //   NewMinutesLeft = NewMinutesLeft / 60000;
 
-  //   if (this.state.minute === 0 && this.state.hour > 0) {
-  //     this.setState({
-  //       hour: this.state.hour - 1,
-  //       minute: 59,
-  //     });
-  //     console.log(' first fires')
-      
-  //     // localStorage.hour = JSON.stringify(Math.floor(this.state.hour - 1));
-  //     // localStorage.minute = JSON.stringify(Math.floor(59));
-  //   } else if (this.state.minute === 0 && this.state.hour === 0) {
-  //     clearInterval(this.state.intervalId);
-  //     var audio = new Audio('wakeup.mp3');
-  //     audio.play();
-  //     document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
-  //     console.log(' else If fires')
-
-  //   } else {
-  //     console.log(' else fires')
-  //     document.title = this.state.hour + ' h & ' + this.state.minute + ' min';
-  //   }
-
-  //   var NewMinutesLeft = (then - now);
-  //   NewMinutesLeft = NewMinutesLeft / 60000;
-
-  //   this.setState({
-  //     endTime: then,
-  //     hour: Math.floor(NewMinutesLeft / 60),
-  //     minute: Math.floor(NewMinutesLeft % 60),
-  //   });
-    
+    //   this.setState({
+    //     endTime: then,
+    //     hour: Math.floor(NewMinutesLeft / 60),
+    //     minute: Math.floor(NewMinutesLeft % 60),
+    //   });
   };
 
   render() {
-    console.log
+    console.log;
     const value = {
       state: {
         ...this.state,
@@ -196,7 +160,7 @@ export class AppProvider extends React.Component {
         test: this.test,
       },
     };
-    
+
     return (
       <AppContext.Provider value={value}>
         {this.props.children}
