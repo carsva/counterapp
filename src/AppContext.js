@@ -40,6 +40,11 @@ export class AppProvider extends React.Component {
     })
   }
 
+  sendDownData = (number) => {
+    console.log('send down data')
+    console.log(number)
+  }
+
   test = values => {
     let hour = values.hour;
     let minute = values.minute;
@@ -60,28 +65,71 @@ export class AppProvider extends React.Component {
     localStorage.endTime = endTime;
     console.log('endTime set in local storage', localStorage.endTime);
 
-    this.setState({
-      // ...this.state,
+      if(values.number === 1) {
+        this.setState({
+          // ...this.state,
+          timer1: 
+            {
+              name: '',
+              startTime: '',
+              endTime: '',
+              hour: Math.floor(minutesLeft / 60),
+              minute: Math.floor(minutesLeft % 60),
+              intervalId: '',
+            },
+    
+          noTimer: false,
+          // hour: Math.floor(minutesLeft / 60),
+          // minute: Math.floor(minutesLeft % 60),
+          // endTime: endTime,
+          // startTime,
+        });
+      } else if(values.number === 2) {
+        this.setState({
+          // ...this.state,
+          timer2: 
+            {
+              name: '',
+              startTime: '',
+              endTime: '',
+              hour: Math.floor(minutesLeft / 60),
+              minute: Math.floor(minutesLeft % 60),
+              intervalId: '',
+            },
+    
+          noTimer: false,
+          // hour: Math.floor(minutesLeft / 60),
+          // minute: Math.floor(minutesLeft % 60),
+          // endTime: endTime,
+          // startTime,
+        });
+      } else if(values.number === 3) {
+        this.setState({
+          // ...this.state,
+          timer3: 
+            {
+              name: '',
+              startTime: '',
+              endTime: '',
+              hour: Math.floor(minutesLeft / 60),
+              minute: Math.floor(minutesLeft % 60),
+              intervalId: '',
+            },
+    
+          noTimer: false,
+          // hour: Math.floor(minutesLeft / 60),
+          // minute: Math.floor(minutesLeft % 60),
+          // endTime: endTime,
+          // startTime,
+        });
+      }
+      
+      // clearInterval(this.state.intervalId);
+      // this.startTimer();
+      
+    }
 
-      timer1: 
-        {
-          name: '',
-          startTime: '',
-          endTime: '',
-          hour: Math.floor(minutesLeft / 60),
-          minute: Math.floor(minutesLeft % 60),
-          intervalId: '',
-        },
-
-      noTimer: false,
-      // hour: Math.floor(minutesLeft / 60),
-      // minute: Math.floor(minutesLeft % 60),
-      // endTime: endTime,
-      // startTime,
-    });
-    // clearInterval(this.state.intervalId);
-    // this.startTimer();
-  };
+    
 
   startTimer = () => {
     var intervalId = setInterval(this.timer, 1000);
@@ -166,6 +214,7 @@ export class AppProvider extends React.Component {
         onDuty: this.onDuty,
         test: this.test,
         handleNumberOfTimers: this.handleNumberOfTimers,
+        sendDownData: this.sendDownData,
       },
     };
 

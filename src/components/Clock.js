@@ -3,19 +3,21 @@ import { AppConsumer } from '../AppContext';
 
 class Clock extends Component {
   render() {
+
+    let { number } = this.props;
+    console.log(number)
     
     const noTimer = (state) => {
       if(state.noTimer === true) {
         return "0 hours and 0 minutes"
-      } else {
+      } else if(state.timer1) {
         return <div>{state.timer1.hour} hours and {state.timer1.minute} minutes</div>
-        
       }
-      console.log('no timer')
+      
       
       
     }
-
+    
     return (
       <AppConsumer>
         {context => (
@@ -23,6 +25,7 @@ class Clock extends Component {
             <div className="rubbe-container">
               <h1 className="rubbe">
               {noTimer(context.state)}
+              <button onClick={() => context.state.sendDownData(number)}>test</button>
                 
               </h1>
             </div>
