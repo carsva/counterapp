@@ -10,7 +10,10 @@ class Start extends Component {
       <AppConsumer>
         {context => (
           <div>
-              <div>Im the start component</div>
+              <div>How many linked timers do you want?</div>
+              <Link to="/home"><button onClick={() => context.state.handleNumberOfTimers(1)}>1</button></Link>
+              <Link to="/home"><button onClick={() => context.state.handleNumberOfTimers(2)}>2</button></Link>
+              <Link to="/home"><button onClick={() => context.state.handleNumberOfTimers(3)}>3</button></Link>
               <Link to="/home"><button>To the timers</button></Link>
           <div>
                 <h3>Data that lives in the context</h3>

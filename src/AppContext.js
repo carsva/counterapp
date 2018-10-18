@@ -25,12 +25,20 @@ export const AppContext = React.createContext('counter');
 //   hour = localHour;
 // }
 
+
+
 export class AppProvider extends React.Component {
   state = {
     noTimer: true,
-    timers: [
-    ],
+    numberOfTimers: 0,
   };
+
+  handleNumberOfTimers = (number) => {
+
+    this.setState({
+      numberOfTimers: number, 
+    })
+  }
 
   test = values => {
     let hour = values.hour;
@@ -55,8 +63,7 @@ export class AppProvider extends React.Component {
     this.setState({
       // ...this.state,
 
-      timers: [
-        ...this.state.timers,
+      timer1: 
         {
           name: '',
           startTime: '',
@@ -65,7 +72,7 @@ export class AppProvider extends React.Component {
           minute: Math.floor(minutesLeft % 60),
           intervalId: '',
         },
-      ],
+
       noTimer: false,
       // hour: Math.floor(minutesLeft / 60),
       // minute: Math.floor(minutesLeft % 60),
@@ -158,6 +165,7 @@ export class AppProvider extends React.Component {
         ...this.state,
         onDuty: this.onDuty,
         test: this.test,
+        handleNumberOfTimers: this.handleNumberOfTimers,
       },
     };
 

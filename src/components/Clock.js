@@ -8,7 +8,7 @@ class Clock extends Component {
       if(state.noTimer === true) {
         return "0 hours and 0 minutes"
       } else {
-        return <div>{state.timers[0].hour} hours and {state.timers[0].minute} minutes</div>
+        return <div>{state.timer1.hour} hours and {state.timer1.minute} minutes</div>
         
       }
       console.log('no timer')
