@@ -28,7 +28,7 @@ export const AppContext = React.createContext('counter');
 export class AppProvider extends React.Component {
   state = {
     timers: [
-      {
+      { name: "",
         startTime: "",
         endTime: "",
         hour: "",
@@ -36,13 +36,14 @@ export class AppProvider extends React.Component {
         intervalId: ""
       },
       {
+        name: "",
         startTime: "",
         endTime: "",
         hour: "",
         minute: "",
         intervalId: ""
       },
-      {
+      { name: "",
         startTime: "",
         endTime: "",
         hour: "",
@@ -75,10 +76,23 @@ export class AppProvider extends React.Component {
     console.log('endTime set in local storage', localStorage.endTime)
 
     this.setState({
-      hour: Math.floor(minutesLeft / 60),
-      minute: Math.floor(minutesLeft % 60),
-      endTime: endTime,
-      startTime,
+      // ...this.state,
+      timers: [
+        {
+            name: "",
+            startTime: "",
+            endTime: "",
+            hour: Math.floor(minutesLeft / 60),
+            minute: Math.floor(minutesLeft % 60),
+            intervalId: ""
+        },
+
+
+        // hour: Math.floor(minutesLeft / 60),
+        // minute: Math.floor(minutesLeft % 60),
+        // endTime: endTime,
+        // startTime,
+      ],
 
     });
     // clearInterval(this.state.intervalId);
@@ -89,7 +103,7 @@ export class AppProvider extends React.Component {
   startTimer = () => {
   
     var intervalId = setInterval(this.timer, 1000);
-    this.setState({intervalId: intervalId});
+    // this.setState({intervalId: intervalId});
   }
 
  
@@ -113,11 +127,11 @@ export class AppProvider extends React.Component {
 
     var minutesLeft = (then - now) / 60000;
 
-    this.setState({
-      hour: Math.floor(minutesLeft / 60),
-      minute: Math.floor(minutesLeft % 60),
-      endTime: localStorage.endTime,
-    });
+    // this.setState({
+    //   hour: Math.floor(minutesLeft / 60),
+    //   minute: Math.floor(minutesLeft % 60),
+    //   endTime: localStorage.endTime,
+    // });
 
     if(this.state.hour === 0 && this.state.minute === 0) {
       clearInterval(this.state.intervalId);
@@ -174,6 +188,7 @@ export class AppProvider extends React.Component {
   };
 
   render() {
+    console.log
     const value = {
       state: {
         ...this.state,

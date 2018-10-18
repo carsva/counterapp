@@ -10,10 +10,7 @@ class Home extends Component {
         {context => (
           <div>
           <Clock />
-          {/* <div>
-                <h3>Data that lives in the context</h3>
-                <pre>{JSON.stringify(context, null, 4)}</pre>
-              </div> */}
+               <pre>{JSON.stringify(context, null, 4)}</pre>
           </div>
         )}
       </AppConsumer>
