@@ -9,7 +9,7 @@ class Clock extends Component {
           <div className="container">
             <div className="rubbe-container">
               <h1 className="rubbe">
-                {context.state.hour} hours and {context.state.minute} minutes
+                {context.state.hour ||'0'} hours and {context.state.minute ||'0'} minutes
               </h1>
             </div>
             <div className="form-container">
